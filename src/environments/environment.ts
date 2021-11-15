@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appVersion: 'v1.0.0',
+  USERDATA_KEY: 'authf649fc9a5f55',
+  isMockEnabled: false,
+  apiUrl: 'http://localhost:5000/api',
 };
 
 /*
