@@ -4,11 +4,12 @@ import { IpaddressListComponent } from './components/ipaddress-list/ipaddress-li
 import { IpaddressRoutingModule } from './ipaddress-routing.module';
 import { IpaddressService } from './services/ipaddress.service';
 import { IpaddressHttpService } from './services/ipaddress-http.service';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [IpaddressListComponent],
-  imports: [CommonModule, IpaddressRoutingModule],
+  imports: [CommonModule, IpaddressRoutingModule, MatListModule],
   providers: [IpaddressService, IpaddressHttpService],
-  bootstrap: [IpaddressListComponent],
+  entryComponents: [IpaddressListComponent],
 })
 export class IpaddressModule {}

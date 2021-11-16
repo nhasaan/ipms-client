@@ -8,6 +8,11 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
+        path: '',
+        redirectTo: '/ipaddresses',
+        pathMatch: 'full',
+      },
+      {
         path: 'ipaddresses',
         loadChildren: () =>
           import('../ipaddress/ipaddress.module').then(
@@ -18,11 +23,6 @@ const routes: Routes = [
         path: 'logs',
         loadChildren: () =>
           import('../log/log.module').then((m) => m.LogModule),
-      },
-      {
-        path: '',
-        redirectTo: '/ipaddresses',
-        pathMatch: 'full',
       },
       {
         path: '**',

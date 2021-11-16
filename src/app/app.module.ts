@@ -8,7 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from './auth/services/auth.guard';
+import { AuthGuardService as AuthGuard } from './auth/services/auth-guard.service';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -22,7 +22,6 @@ function appInitializer(authService: AuthService) {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -31,6 +30,7 @@ function appInitializer(authService: AuthService) {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [
     {

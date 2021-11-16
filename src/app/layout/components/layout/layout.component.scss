@@ -1,0 +1,8 @@
+:host {
+  .brand {
+    width: 100px;
+    .brand-logo > img {
+      max-width: 100px;
+    }
+  }
+}

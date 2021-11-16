@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { AuthComponent } from './components/auth/auth.component';
     LogoutComponent,
     AuthComponent,
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, AuthRoutingModule],
   bootstrap: [AuthComponent],
 })
 export class AuthModule {}
