@@ -8,6 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AuthService } from './auth/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth/services/auth.guard';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -38,6 +39,7 @@ function appInitializer(authService: AuthService) {
       multi: true,
       deps: [AuthService],
     },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })

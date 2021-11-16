@@ -11,11 +11,6 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
-      },
-      {
         path: 'login',
         component: LoginComponent,
         data: { returnUrl: window.location.pathname },

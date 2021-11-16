@@ -14,6 +14,6 @@ import { AuthComponent } from './components/auth/auth.component';
     AuthComponent,
   ],
   imports: [CommonModule, HttpClientModule],
-  bootstrap: [LoginComponent],
+  bootstrap: [AuthComponent],
 })
 export class AuthModule {}

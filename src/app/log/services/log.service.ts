@@ -8,22 +8,22 @@ import {
   of,
   switchMap,
 } from 'rxjs';
-import { IpaddressModel } from '../models/ipaddress.model';
-import { IpaddressHttpService } from './ipaddress-http.service';
+import { LogModel } from '../models/log.model';
+import { LogHttpService } from './log-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class IpaddressService {
+export class LogService {
   isLoadingSubject: BehaviorSubject<boolean>;
 
-  constructor(private ipaddrssHttpService: IpaddressHttpService) {
+  constructor(private ipaddrssHttpService: LogHttpService) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
   }
 
   // need create new user then login
-  getIpaddresses(ipaddress: IpaddressModel): Observable<any> {
-    return this.ipaddrssHttpService.findAll(ipaddress).pipe(
+  getLogs(log: LogModel): Observable<any> {
+    return this.ipaddrssHttpService.findAll(log).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
       }),

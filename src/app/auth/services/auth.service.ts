@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
 import { AuthModel } from '../models/auth.model';
 import { AuthHTTPService } from './auth-http.service';
-import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +59,7 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
+    console.log('fff');
     localStorage.removeItem(this.authLocalStorageToken);
     this.router.navigate(['/auth/login'], {
       queryParams: {},
