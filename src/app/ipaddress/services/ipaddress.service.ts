@@ -22,8 +22,8 @@ export class IpaddressService {
   }
 
   // need create new user then login
-  getIpaddresses(ipaddress: IpaddressModel): Observable<any> {
-    return this.ipaddrssHttpService.findAll(ipaddress).pipe(
+  getIpaddresses(filter?: any): Observable<any> {
+    return this.ipaddrssHttpService.findAll(filter).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
       }),

@@ -22,8 +22,8 @@ export class LogService {
   }
 
   // need create new user then login
-  getLogs(log: LogModel): Observable<any> {
-    return this.ipaddrssHttpService.findAll(log).pipe(
+  getLogs(filter?: any): Observable<any> {
+    return this.ipaddrssHttpService.findAll(filter).pipe(
       map(() => {
         this.isLoadingSubject.next(false);
       }),

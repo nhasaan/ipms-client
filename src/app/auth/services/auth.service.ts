@@ -16,16 +16,16 @@ export class AuthService implements OnDestroy {
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
   // public fields
-  currentUser$: Observable<UserModel>;
+  currentUser$: Observable<UserModel | undefined>;
   isLoading$: Observable<boolean>;
-  currentUserSubject: BehaviorSubject<UserModel>;
+  currentUserSubject: BehaviorSubject<UserModel | undefined>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
-  get currentUserValue(): UserModel {
+  get currentUserValue(): UserModel | undefined {
     return this.currentUserSubject.value;
   }
 
-  set currentUserValue(user: UserModel) {
+  set currentUserValue(user: UserModel | undefined) {
     this.currentUserSubject.next(user);
   }
 
@@ -34,7 +34,9 @@ export class AuthService implements OnDestroy {
     private router: Router
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
-    this.currentUserSubject = new BehaviorSubject<UserModel>(new UserModel());
+    this.currentUserSubject = new BehaviorSubject<UserModel | undefined>(
+      undefined
+    );
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
     const subscr = this.getUserByToken().subscribe();
@@ -42,7 +44,7 @@ export class AuthService implements OnDestroy {
   }
 
   // public methods
-  login(email: string, password: string): Observable<UserModel> {
+  login(email: string, password: string): Observable<UserModel | undefined> {
     this.isLoadingSubject.next(true);
     return this.authHttpService.login(email, password).pipe(
       map((auth: AuthModel) => {
@@ -52,31 +54,32 @@ export class AuthService implements OnDestroy {
       switchMap(() => this.getUserByToken()),
       catchError((err) => {
         console.error('err', err);
-        return of(new UserModel());
+        return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
   logout() {
-    console.log('fff');
     localStorage.removeItem(this.authLocalStorageToken);
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
   }
 
-  getUserByToken(): Observable<UserModel> {
+  getUserByToken(): Observable<UserModel | undefined> {
     const auth = this.getAuthFromLocalStorage();
     if (!auth || !auth.authToken) {
-      return of(new UserModel());
+      return of(undefined);
     }
 
     this.isLoadingSubject.next(true);
     return this.authHttpService.getUserByToken(auth.authToken).pipe(
       map((user: UserModel) => {
         if (user) {
-          this.currentUserSubject = new BehaviorSubject<UserModel>(user);
+          this.currentUserSubject = new BehaviorSubject<UserModel | undefined>(
+            user
+          );
         } else {
           this.logout();
         }
@@ -102,12 +105,12 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  // forgotPassword(email: string): Observable<boolean> {
-  //   this.isLoadingSubject.next(true);
-  //   return this.authHttpService
-  //     .forgotPassword(email)
-  //     .pipe(finalize(() => this.isLoadingSubject.next(false)));
-  // }
+  forgotPassword(email: string): Observable<boolean> {
+    this.isLoadingSubject.next(true);
+    return this.authHttpService
+      .forgotPassword(email)
+      .pipe(finalize(() => this.isLoadingSubject.next(false)));
+  }
 
   // private methods
   private setAuthFromLocalStorage(auth: AuthModel): boolean {
@@ -119,16 +122,15 @@ export class AuthService implements OnDestroy {
     return false;
   }
 
-  private getAuthFromLocalStorage(): AuthModel {
+  private getAuthFromLocalStorage(): AuthModel | undefined {
     try {
-      const authDataStr = String(
-        localStorage.getItem(this.authLocalStorageToken)
+      const authData = JSON.parse(
+        String(localStorage.getItem(this.authLocalStorageToken))
       );
-      const authData = JSON.parse(authDataStr);
       return authData;
     } catch (error) {
       console.error(error);
-      return new AuthModel();
+      return undefined;
     }
   }
 

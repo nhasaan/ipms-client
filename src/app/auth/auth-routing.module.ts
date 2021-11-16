@@ -24,7 +24,7 @@ const routes: Routes = [
         component: LogoutComponent,
       },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' },
+      { path: '**', redirectTo: 'error/404' },
     ],
   },
 ];
