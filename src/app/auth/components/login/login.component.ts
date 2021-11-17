@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { UserModel } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthModel } from '../../models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
     if (this.authService.currentUserValue) {
-      debugger;
       this.router.navigate(['/']);
     }
   }
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.initForm();
     // get return url from route parameters or default to '/'
     this.returnUrl =
-      this.route.snapshot.queryParams['returnUrl'.toString()] || '/auth';
+      this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -82,8 +82,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     const loginSubscr = this.authService
       .login(this.f['email'].value, this.f['password'].value)
       .pipe(first())
-      .subscribe((user?: UserModel) => {
-        if (user) {
+      .subscribe((auth?: AuthModel) => {
+        if (auth && auth.accessToken) {
           this.router.navigate([this.returnUrl]);
         } else {
           this.hasError = true;
