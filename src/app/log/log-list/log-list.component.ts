@@ -6,8 +6,16 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  merge,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { LogDataSource } from '../services/log.datasource';
 import { LogService } from '../services/log.service';
 
@@ -24,7 +32,7 @@ export class LogListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['message', 'onModel', 'eventType', 'createdAt'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  // @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   @ViewChild('input', { static: true }) input!: ElementRef;
 
@@ -38,20 +46,11 @@ export class LogListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    // fromEvent(this.input.nativeElement, 'keyup')
-    //   .pipe(
-    //     debounceTime(150),
-    //     distinctUntilChanged(),
-    //     tap(() => {
-    //       this.paginator.pageIndex = 0;
-    //       this.loadLogsPage();
-    //     })
-    //   )
-    //   .subscribe();
-    // merge(this.sort.sortChange, this.paginator.page)
-    //   .pipe(tap(() => this.loadLogsPage()))
-    //   .subscribe();
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(tap(() => this.loadLogsPage()))
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -59,6 +58,7 @@ export class LogListComponent implements OnInit, AfterViewInit {
   }
 
   loadLogsPage() {
+    console.log(this.paginator);
     this.dataSource.loadLogs({
       page: this.paginator.pageIndex,
       size: this.paginator.pageSize,

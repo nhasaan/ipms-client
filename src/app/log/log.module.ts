@@ -10,6 +10,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { LogListComponent } from './log-list/log-list.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [LogComponent, LogListComponent],
@@ -21,6 +24,9 @@ import { LogListComponent } from './log-list/log-list.component';
     MatNativeDateModule,
     HttpClientModule,
     MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   providers: [LogService, LogHttpService],
   bootstrap: [LogComponent],
