@@ -8,7 +8,7 @@ import {
   of,
   switchMap,
 } from 'rxjs';
-import { QueryResponseDTO } from 'src/app/shared/query-response.dto';
+import { QueryResponse } from '../../shared/query-response';
 import {
   IpaddressModel,
   IQueryParamsIpaddress,

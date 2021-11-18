@@ -29,17 +29,14 @@ import { MatSort } from '@angular/material/sort';
 export class IpaddressListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  data: any;
+  totalCount: number = 100;
   hasError: boolean = false;
-  // dataSource = new MatTableDataSource<IpaddressModel>();
   dataSource!: IpaddressDataSource;
 
   displayedColumns: string[] = ['ip', 'label', 'createdAt'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  // @ViewChild(MatSort, { static: true }) sort!: MatSort;
-
-  @ViewChild('input', { static: true }) input!: ElementRef;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   private unsubscribe: Subscription[] = [];
 
@@ -54,20 +51,11 @@ export class IpaddressListComponent
   }
 
   ngAfterViewInit() {
-    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    // fromEvent(this.input.nativeElement, 'keyup')
-    //   .pipe(
-    //     debounceTime(150),
-    //     distinctUntilChanged(),
-    //     tap(() => {
-    //       this.paginator.pageIndex = 0;
-    //       this.loadIpaddressesPage();
-    //     })
-    //   )
-    //   .subscribe();
-    // merge(this.sort.sortChange, this.paginator.page)
-    //   .pipe(tap(() => this.loadIpaddressesPage()))
-    //   .subscribe();
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(tap(() => this.loadIpaddressesPage()))
+      .subscribe();
   }
 
   ngOnDestroy() {
