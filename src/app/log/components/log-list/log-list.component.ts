@@ -16,8 +16,8 @@ import {
   Subscription,
   tap,
 } from 'rxjs';
-import { LogDataSource } from '../services/log.datasource';
-import { LogService } from '../services/log.service';
+import { LogDataSource } from '../../services/log.datasource';
+import { LogService } from '../../services/log.service';
 
 @Component({
   selector: 'app-log-list',

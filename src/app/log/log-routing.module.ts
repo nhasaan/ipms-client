@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LogComponent } from './components/log/log.component';
-import { LogListComponent } from './log-list/log-list.component';
+import { LogListComponent } from './components/log-list/log-list.component';
 
 const routes: Routes = [
   {
