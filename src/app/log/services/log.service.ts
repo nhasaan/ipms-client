@@ -8,7 +8,7 @@ import {
   of,
   switchMap,
 } from 'rxjs';
-import { LogModel } from '../models/log.model';
+import { IQueryParamsLog, LogModel } from '../models/log.model';
 import { LogHttpService } from './log-http.service';
 
 @Injectable({
@@ -21,17 +21,15 @@ export class LogService {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
   }
 
-  // need create new user then login
-  getLogs(filter?: any): Observable<any> {
-    return this.ipaddrssHttpService.findAll(filter).pipe(
-      map(() => {
-        this.isLoadingSubject.next(false);
-      }),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+  findLogs(queryParams: IQueryParamsLog): Observable<LogModel[]> {
+    const { page, size, ...filter } = queryParams;
+    const pageNumber = page ? page + 1 : 1;
+    const pageSize = size || 3;
+
+    let queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+
+    return this.ipaddrssHttpService
+      .findAllIpaddresses(queryString)
+      .pipe(map((res) => res && res.data));
   }
 }

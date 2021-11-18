@@ -25,20 +25,6 @@ export class IpaddressService {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
   }
 
-  // need create new user then login
-  // findIpaddresses(filter: IQueryParamsIpaddress): Observable<IpaddressModel[]> {
-  //   return this.ipaddrssHttpService.findAllIpaddresses(filter).pipe(
-  //     map(() => {
-  //       this.isLoadingSubject.next(false);
-  //     }),
-  //     catchError((err) => {
-  //       console.error('err', err);
-  //       return of(undefined);
-  //     }),
-  //     finalize(() => this.isLoadingSubject.next(false))
-  //   );
-  // }
-
   findIpaddresses(
     queryParams: IQueryParamsIpaddress
   ): Observable<IpaddressModel[]> {
@@ -48,27 +34,8 @@ export class IpaddressService {
 
     let queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
 
-    // if (filter) {
-    //   Object.keys(filter).map((k) => {
-    //     if (k) {
-    //       queryString += `&${k}`;
-    //     }
-    //   });
-    // }
-
     return this.ipaddrssHttpService
       .findAllIpaddresses(queryString)
       .pipe(map((res) => res && res.data));
-
-    // return this.http
-    //   .get(`${API_URL}/logs`, {
-    //     params: new HttpParams()
-    //       .set('courseId', courseId.toString())
-    //       .set('filter', filter)
-    //       .set('sortOrder', sortOrder)
-    //       .set('pageNumber', pageNumber.toString())
-    //       .set('pageSize', pageSize.toString()),
-    //   })
-    //   .pipe(map((res) => res['payload']));
   }
 }

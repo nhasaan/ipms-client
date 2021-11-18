@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LogModel } from '../models/log.model';
 
@@ -9,21 +10,21 @@ const API_LOGS_URL = `${environment.apiUrl}/logs`;
   providedIn: 'root',
 })
 export class LogHttpService {
+  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
+
   constructor(private http: HttpClient) {}
 
-  findAll(queryParams?: any) {
-    let queryString = '';
+  findAllIpaddresses(queryString: string): Observable<any> {
+    const token = JSON.parse(
+      String(localStorage.getItem(this.authLocalStorageToken))
+    ).accessToken;
 
-    if (queryParams) {
-      Object.keys(queryParams).map((k) => {
-        if (queryParams[0] === k) {
-          queryString += `?${queryParams[k]}`;
-        } else {
-          queryString += `&${queryParams[k]}`;
-        }
-      });
-    }
+    const httpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
 
-    return this.http.get<LogModel>(`${API_LOGS_URL}/logs/${queryString}`);
+    return this.http.get<LogModel[]>(`${API_LOGS_URL}${queryString}`, {
+      headers: httpHeaders,
+    });
   }
 }

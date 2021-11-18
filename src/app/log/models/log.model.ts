@@ -19,3 +19,10 @@ export class LogModel {
     this.updatedAt = logModel.updatedAt || '';
   }
 }
+
+export interface IQueryParamsLog {
+  _id?: string;
+  search?: string;
+  page?: number;
+  size?: number;
+}
