@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IpaddressListComponent } from './components/ipaddress-list/ipaddress-list.component';
-import { IpaddressComponent } from './ipaddress/ipaddress.component';
+import { IpaddressComponent } from './components/ipaddress/ipaddress.component';
 
 const routes: Routes = [
   {

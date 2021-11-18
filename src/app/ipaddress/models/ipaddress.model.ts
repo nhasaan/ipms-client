@@ -13,3 +13,15 @@ export class IpaddressModel {
     this.updatedAt = ipModel.updatedAt || '';
   }
 }
+
+export interface IPagination {
+  page: number;
+  size: number;
+}
+
+export interface IQueryParamsIpaddress {
+  _id?: string;
+  search?: string;
+  page?: number;
+  size?: number;
+}

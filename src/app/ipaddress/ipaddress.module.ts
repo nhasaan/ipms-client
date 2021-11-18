@@ -9,7 +9,7 @@ import { MaterialModule } from '../material/material.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { IpaddressComponent } from './ipaddress/ipaddress.component';
+import { IpaddressComponent } from './components/ipaddress/ipaddress.component';
 
 @NgModule({
   declarations: [IpaddressListComponent, IpaddressComponent],

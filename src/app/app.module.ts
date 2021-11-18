@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AuthService } from './auth/services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuardService as AuthGuard } from './auth/services/auth-guard.service';
 
 function appInitializer(authService: AuthService) {
@@ -40,6 +40,12 @@ function appInitializer(authService: AuthService) {
       deps: [AuthService],
     },
     AuthGuard,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptorService,
+    //   multi: true,
+    //   deps: [AuthService],
+    // },
   ],
   bootstrap: [AppComponent],
 })
