@@ -29,7 +29,7 @@ import { MatSort } from '@angular/material/sort';
 export class IpaddressListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  totalCount: number = 100;
+  totalCount: number = 0;
   hasError: boolean = false;
   dataSource!: IpaddressDataSource;
 
@@ -40,15 +40,12 @@ export class IpaddressListComponent
 
   private unsubscribe: Subscription[] = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: IpaddressService
-  ) {}
+  constructor(private router: Router, private service: IpaddressService) {}
 
   ngOnInit(): void {
     this.dataSource = new IpaddressDataSource(this.service);
     this.dataSource.loadIpaddresses({ page: 0, size: 3 });
+    this.service.totalIPCountEvent.subscribe((t) => (this.totalCount = t));
   }
 
   ngAfterViewInit() {

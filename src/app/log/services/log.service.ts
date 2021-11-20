@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   catchError,
@@ -16,6 +16,7 @@ import { LogHttpService } from './log-http.service';
 })
 export class LogService {
   isLoadingSubject: BehaviorSubject<boolean>;
+  totalLogCountEvent: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private ipaddrssHttpService: LogHttpService) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
@@ -28,8 +29,13 @@ export class LogService {
 
     let queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
 
-    return this.ipaddrssHttpService
-      .findAllLogs(queryString)
-      .pipe(map((res) => res && res.data));
+    return this.ipaddrssHttpService.findAllLogs(queryString).pipe(
+      map((res) => {
+        const totalCount = (res && res.totalCount) || 0;
+        const data = (res && res.data) || [];
+        this.totalLogCountEvent.next(totalCount);
+        return data;
+      })
+    );
   }
 }

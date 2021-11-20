@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   catchError,
@@ -8,7 +8,6 @@ import {
   of,
   switchMap,
 } from 'rxjs';
-import { QueryResponse } from '../../shared/query-response';
 import {
   IpaddressCreate,
   IpaddressModel,
@@ -21,6 +20,7 @@ import { IpaddressHttpService } from './ipaddress-http.service';
 })
 export class IpaddressService {
   isLoadingSubject: BehaviorSubject<boolean>;
+  totalIPCountEvent: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private ipaddrssHttpService: IpaddressHttpService) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
@@ -35,9 +35,14 @@ export class IpaddressService {
 
     let queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
 
-    return this.ipaddrssHttpService
-      .findAllIpaddresses(queryString)
-      .pipe(map((res) => res && res.data));
+    return this.ipaddrssHttpService.findAllIpaddresses(queryString).pipe(
+      map((res) => {
+        const totalCount = (res && res.totalCount) || 0;
+        const data = (res && res.data) || [];
+        this.totalIPCountEvent.next(totalCount);
+        return data;
+      })
+    );
   }
 
   create(model: IpaddressCreate): Observable<IpaddressModel> {

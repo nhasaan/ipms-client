@@ -25,7 +25,7 @@ import { LogService } from '../../services/log.service';
   styleUrls: ['./log-list.component.scss'],
 })
 export class LogListComponent implements OnInit, AfterViewInit {
-  data: any;
+  totalCount: number = 0;
   hasError: boolean = false;
   dataSource!: LogDataSource;
 
@@ -38,11 +38,12 @@ export class LogListComponent implements OnInit, AfterViewInit {
 
   private unsubscribe: Subscription[] = [];
 
-  constructor(private route: ActivatedRoute, private service: LogService) {}
+  constructor(private service: LogService) {}
 
   ngOnInit(): void {
     this.dataSource = new LogDataSource(this.service);
     this.dataSource.loadLogs({ page: 0, size: 3 });
+    this.service.totalLogCountEvent.subscribe((t) => (this.totalCount = t));
   }
 
   ngAfterViewInit() {
