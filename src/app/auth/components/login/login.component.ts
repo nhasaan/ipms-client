@@ -13,11 +13,6 @@ import { AuthModel } from '../../models/auth.model';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  // KeenThemes mock, change it to:
-  // defaultAuth = {
-  //   email: '',
-  //   password: '',
-  // };
   defaultAuth: any = {
     email: 'admin@demo.com',
     password: 'demo',
@@ -83,7 +78,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .login(this.f['email'].value, this.f['password'].value)
       .pipe(first())
       .subscribe((auth?: AuthModel) => {
-        if (auth && auth.accessToken) {
+        console.log('auth: ', auth);
+        if (auth) {
           this.router.navigate([this.returnUrl]);
         } else {
           this.hasError = true;

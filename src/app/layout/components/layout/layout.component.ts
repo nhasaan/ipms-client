@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -8,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class LayoutComponent implements OnInit {
   selfLayout = 'default';
   headerLogo: string;
+  isLoggedin: boolean;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.headerLogo = this.getLogo();
+    this.isLoggedin = this.authService.currentUserValue ? true : false;
   }
 
   ngOnInit(): void {}

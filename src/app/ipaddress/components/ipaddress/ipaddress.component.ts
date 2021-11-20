@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ipaddress',
   templateUrl: './ipaddress.component.html',
-  styleUrls: ['./ipaddress.component.scss']
+  styleUrls: ['./ipaddress.component.scss'],
 })
 export class IpaddressComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private router: Router) {
+    this.router.navigate(['ipaddresses/list']);
   }
 
+  ngOnInit(): void {}
 }

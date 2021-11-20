@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-aside',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./aside.component.scss'],
 })
 export class AsideComponent implements OnInit {
-  constructor() {}
+  isLoggedin: boolean;
+
+  constructor(private authService: AuthService) {
+    this.isLoggedin = this.authService.currentUserValue ? true : false;
+  }
 
   ngOnInit(): void {}
 }
