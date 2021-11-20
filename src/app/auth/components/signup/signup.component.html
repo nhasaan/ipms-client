@@ -87,7 +87,7 @@
         <div class="mb-8">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">First Name</label>
             <input
-                class="shadow border border-current rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text" name="firstName" autocomplete="off" formControlName="firstName"
                 [ngClass]="{ 'is-invalid': signupForm.controls['firstName'].invalid }" />
         </div>
@@ -97,7 +97,7 @@
         <div class="mb-8">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Last Name</label>
             <input
-                class="shadow border border-current rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow border border-solid rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text" name="lastName" autocomplete="off" formControlName="lastName"
                 [ngClass]="{ 'is-invalid': signupForm.controls['lastName'].invalid }" />
         </div>
@@ -112,7 +112,7 @@
             <button [disabled]="signupForm.invalid"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">
-                Sign In
+                Sign up
             </button>
             <ng-container *ngIf="isLoading$ | async">
                 <span class="spinner spinner-primary ml-5"></span>
