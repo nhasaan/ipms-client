@@ -1,1 +1,135 @@
-<p>signup works!</p>
+<!--begin::Signin-->
+<div class="w-full max-w-xs">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" [formGroup]="signupForm" novalidate="novalidate"
+        (ngSubmit)="submit()">
+        <!--begin::Form-->
+
+        <!--begin::Title-->
+        <div class="pt-lg-0 pt-5 mx-auto">
+            <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg text-center">
+                Welcome to IPMS
+            </h3>
+        </div>
+        <!--end::Title-->
+
+        <div class="ml-auto text-right mb-8">
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                routerLink="/auth/signin">
+                <b>Have account? Signin</b>
+            </a>
+        </div>
+
+        <!-- begin::Alert error-->
+        <ng-container *ngIf="hasError">
+            <div class="mb-10 alert alert-custom alert-light-danger alert-dismissible">
+                <div class="alert-text">The signup details are incorrect</div>
+            </div>
+        </ng-container>
+        <!-- end::Alert error-->
+
+        <!--begin::Form group-->
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+            <input
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="email" name="email" formControlName="email" autocomplete="off"
+                [ngClass]="{ 'is-invalid': signupForm.controls['email'].invalid }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Email is required',
+            control: signupForm.controls['email']
+          }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'email',
+            message: 'Email is invalid',
+            control: signupForm.controls['email']
+          }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'minLength',
+            message: 'Email should have at least 3 symbols',
+            control: signupForm.controls['email']
+          }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'Email should have maximum 360 symbols',
+            control: signupForm.controls['email']
+          }"></ng-container>
+        </div>
+        <!--end::Form group-->
+
+        <!--begin::Form group-->
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Password</label>
+            <input
+                class="shadow border border-current rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="password" name="password" autocomplete="off" formControlName="password"
+                [ngClass]="{ 'is-invalid': signupForm.controls['password'].invalid }" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Password is required',
+            control: signupForm.controls['password']
+          }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Password should have at least 3 symbols',
+            control: signupForm.controls['password']
+          }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'Password should have maximum 100 symbols',
+            control: signupForm.controls['password']
+          }"></ng-container>
+        </div>
+        <!--end::Form group-->
+
+
+        <!--begin::Form group-->
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">First Name</label>
+            <input
+                class="shadow border border-current rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text" name="firstName" autocomplete="off" formControlName="firstName"
+                [ngClass]="{ 'is-invalid': signupForm.controls['firstName'].invalid }" />
+        </div>
+        <!--end::Form group-->
+
+        <!--begin::Form group-->
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Last Name</label>
+            <input
+                class="shadow border border-current rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text" name="lastName" autocomplete="off" formControlName="lastName"
+                [ngClass]="{ 'is-invalid': signupForm.controls['lastName'].invalid }" />
+        </div>
+        <!--end::Form group-->
+
+        <!--begin::Action-->
+        <div class="flex items-center justify-between">
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                routerLink="/auth/forgot-password">
+                Forgot Password?
+            </a>
+            <button [disabled]="signupForm.invalid"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Sign In
+            </button>
+            <ng-container *ngIf="isLoading$ | async">
+                <span class="spinner spinner-primary ml-5"></span>
+            </ng-container>
+        </div>
+        <!--end::Action-->
+    </form>
+    <!--end::Form-->
+</div>
+<!--end::Signin-->
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+                {{ message }}
+            </div>
+        </div>
+    </ng-container>
+</ng-template>

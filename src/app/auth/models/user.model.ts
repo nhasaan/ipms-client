@@ -15,3 +15,10 @@ export class UserModel extends AuthModel {
     this.lastName = user.lastName || '';
   }
 }
+
+export class UserSignup {
+  email: string = '';
+  password: string = '';
+  firstName: string = '';
+  lastName: string = '';
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserModel } from '../models/user.model';
+import { UserModel, UserSignup } from '../models/user.model';
 import { environment } from '../../../environments/environment';
 import { AuthModel } from '../models/auth.model';
 
@@ -22,7 +22,7 @@ export class AuthHTTPService {
   }
 
   // CREATE =>  POST: add a new user to the server
-  createUser(user: UserModel): Observable<UserModel> {
+  createUser(user: UserSignup): Observable<UserModel> {
     return this.http.post<UserModel>(`${API_AUTH_URL}/signup`, user);
   }
 
