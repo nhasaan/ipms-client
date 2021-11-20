@@ -10,6 +10,7 @@ import {
 } from 'rxjs';
 import { QueryResponse } from '../../shared/query-response';
 import {
+  IpaddressCreate,
   IpaddressModel,
   IQueryParamsIpaddress,
 } from '../models/ipaddress.model';
@@ -37,5 +38,17 @@ export class IpaddressService {
     return this.ipaddrssHttpService
       .findAllIpaddresses(queryString)
       .pipe(map((res) => res && res.data));
+  }
+
+  create(model: IpaddressCreate): Observable<IpaddressModel> {
+    return this.ipaddrssHttpService.create(model);
+  }
+
+  update(id: string, model: IpaddressCreate): Observable<IpaddressModel> {
+    return this.ipaddrssHttpService.update(id, model);
+  }
+
+  findIpaddress(id: string): Observable<IpaddressModel> {
+    return this.ipaddrssHttpService.findOne(id);
   }
 }

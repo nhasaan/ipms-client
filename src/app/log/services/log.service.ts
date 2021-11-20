@@ -29,7 +29,7 @@ export class LogService {
     let queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
 
     return this.ipaddrssHttpService
-      .findAllIpaddresses(queryString)
+      .findAllLogs(queryString)
       .pipe(map((res) => res && res.data));
   }
 }

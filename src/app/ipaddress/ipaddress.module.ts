@@ -10,9 +10,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { IpaddressComponent } from './components/ipaddress/ipaddress.component';
+import { IpaddressCreateComponent } from './components/ipaddress-create/ipaddress-create.component';
 
 @NgModule({
-  declarations: [IpaddressListComponent, IpaddressComponent],
+  declarations: [IpaddressListComponent, IpaddressComponent, IpaddressCreateComponent],
   imports: [
     CommonModule,
     IpaddressRoutingModule,

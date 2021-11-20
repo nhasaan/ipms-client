@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IpaddressDataSource } from '../../services/ipaddress.datasource';
 import { IpaddressService } from '../../services/ipaddress.service';
@@ -33,7 +33,7 @@ export class IpaddressListComponent
   hasError: boolean = false;
   dataSource!: IpaddressDataSource;
 
-  displayedColumns: string[] = ['ip', 'label', 'createdAt'];
+  displayedColumns: string[] = ['ip', 'label', 'createdAt', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -42,6 +42,7 @@ export class IpaddressListComponent
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private service: IpaddressService
   ) {}
 
@@ -67,5 +68,10 @@ export class IpaddressListComponent
       page: this.paginator.pageIndex,
       size: this.paginator.pageSize,
     });
+  }
+
+  gotoEdit(id: string) {
+    console.log(id);
+    this.router.navigate(['ipaddresses', 'edit', id]);
   }
 }

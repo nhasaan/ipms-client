@@ -25,3 +25,8 @@ export interface IQueryParamsIpaddress {
   page?: number;
   size?: number;
 }
+
+export interface IpaddressCreate {
+  ip: string;
+  label: string;
+}

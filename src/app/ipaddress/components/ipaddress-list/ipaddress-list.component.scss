@@ -1,5 +1,12 @@
 :host {
+  .ipaddress {
+    width: 100%;
+  }
   table {
     width: 100%;
+  }
+  .goto {
+    cursor: pointer;
+    padding: 5px 10px;
   }
 }

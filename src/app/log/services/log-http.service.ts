@@ -12,19 +12,19 @@ const API_LOGS_URL = `${environment.apiUrl}/logs`;
 export class LogHttpService {
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
+  private token = JSON.parse(
+    String(localStorage.getItem(this.authLocalStorageToken))
+  ).accessToken;
+
+  private httpHeaders = new HttpHeaders({
+    Authorization: `Bearer ${this.token}`,
+  });
+
   constructor(private http: HttpClient) {}
 
-  findAllIpaddresses(queryString: string): Observable<any> {
-    const token = JSON.parse(
-      String(localStorage.getItem(this.authLocalStorageToken))
-    ).accessToken;
-
-    const httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
+  findAllLogs(queryString: string): Observable<any> {
     return this.http.get<LogModel[]>(`${API_LOGS_URL}${queryString}`, {
-      headers: httpHeaders,
+      headers: this.httpHeaders,
     });
   }
 }
