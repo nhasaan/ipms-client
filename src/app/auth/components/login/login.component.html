@@ -1,28 +1,23 @@
 <!--begin::Signin-->
-<div class="login-form login-signin">
-    <!--begin::Form-->
-    <form class="form" [formGroup]="loginForm" novalidate="novalidate" id="kt_login_signin_form" (ngSubmit)="submit()">
+<div class="w-full max-w-xs">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" [formGroup]="loginForm" novalidate="novalidate"
+        (ngSubmit)="submit()">
+        <!--begin::Form-->
+
         <!--begin::Title-->
-        <div class="pb-13 pt-lg-0 pt-5">
-            <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
+        <div class="pt-lg-0 pt-5 mx-auto">
+            <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg text-center">
                 Welcome to IPMS
             </h3>
-            <span class="text-muted font-weight-bold font-size-h4">New Here?
-                <a routerLink="/auth/signup" id="kt_login_signup" class="text-primary font-weight-bolder">Signup</a>
-            </span>
         </div>
         <!--end::Title-->
 
-        <!-- begin::Alert info-->
-        <ng-container *ngIf="!hasError">
-            <div class="mb-10 alert alert-custom alert-light-info alert-dismissible">
-                <div class="alert-text">
-                    Use account <strong>{{ defaultAuth.email }}</strong> and password
-                    <strong>{{ defaultAuth.password }}</strong> to continue.
-                </div>
-            </div>
-        </ng-container>
-        <!-- end::Alert info-->
+        <div class="ml-auto text-right mb-8">
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                routerLink="/auth/signup">
+                <b>New Here? Signup</b>
+            </a>
+        </div>
 
         <!-- begin::Alert error-->
         <ng-container *ngIf="hasError">
@@ -33,10 +28,11 @@
         <!-- end::Alert error-->
 
         <!--begin::Form group-->
-        <div class="form-group">
-            <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="email" name="email"
-                formControlName="email" autocomplete="off"
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+            <input
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="email" name="email" formControlName="email" autocomplete="off"
                 [ngClass]="{ 'is-invalid': loginForm.controls['email'].invalid }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
             validation: 'required',
@@ -62,17 +58,11 @@
         <!--end::Form group-->
 
         <!--begin::Form group-->
-        <div class="form-group">
-            <div class="d-flex justify-content-between mt-n5">
-                <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-                <a routerLink="/auth/forgot-password"
-                    class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5" id="kt_login_forgot">
-                    Forgot Password ?
-                </a>
-            </div>
-
-            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" name="password"
-                autocomplete="off" formControlName="password"
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Password</label>
+            <input
+                class="shadow border border-current rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="password" name="password" autocomplete="off" formControlName="password"
                 [ngClass]="{ 'is-invalid': loginForm.controls['password'].invalid }" />
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
             validation: 'required',
@@ -93,20 +83,16 @@
         <!--end::Form group-->
 
         <!--begin::Action-->
-        <div class="pb-lg-0 pb-5">
-            <button type="submit" id="kt_login_signin_submit"
-                class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"
-                [disabled]="loginForm.invalid">
+        <div class="flex items-center justify-between">
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                routerLink="/auth/forgot-password">
+                Forgot Password?
+            </a>
+            <button [disabled]="loginForm.invalid"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
                 Sign In
             </button>
-
-            <!-- <button type="button" class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
-                <span class="svg-icon svg-icon-md">
-                    <img src="./assets/media/svg/social-icons/google.svg" />
-                </span>
-                Sign in with Google
-            </button> -->
-
             <ng-container *ngIf="isLoading$ | async">
                 <span class="spinner spinner-primary ml-5"></span>
             </ng-container>

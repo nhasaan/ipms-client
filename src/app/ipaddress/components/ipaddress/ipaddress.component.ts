@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class IpaddressComponent implements OnInit {
   constructor(private router: Router) {
-    this.router.navigate(['ipaddresses/list']);
+    if (location.pathname === '/ipaddresses')
+      this.router.navigate(['ipaddresses/list']);
   }
 
   ngOnInit(): void {}

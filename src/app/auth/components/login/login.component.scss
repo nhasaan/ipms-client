@@ -1,9 +1,15 @@
 :host {
+  .bg-blue-500 {
+    background-color: #22adbb;
+  }
   width: 100%;
   @media (min-width: 992px) {
     .login-form {
       width: 100%;
-      max-width: 450px;
+
+      form {
+        max-width: 80%;
+      }
 
       .mat-form-field {
         width: 100%;

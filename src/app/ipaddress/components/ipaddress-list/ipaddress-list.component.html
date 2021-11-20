@@ -1,4 +1,9 @@
 <div class="mat-elevation-z8 mx-auto">
+    <div class="right" style="text-align: right;">
+        <button mat-raised-button color="primary" (click)="gotoCreate()">
+            Add IP Address
+        </button>
+    </div>
     <div class="ipaddress">
         <div class="spinner-container" *ngIf="dataSource.loading$ | async">
             <mat-spinner></mat-spinner>

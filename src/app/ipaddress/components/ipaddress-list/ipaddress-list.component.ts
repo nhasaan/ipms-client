@@ -71,7 +71,10 @@ export class IpaddressListComponent
   }
 
   gotoEdit(id: string) {
-    console.log(id);
     this.router.navigate(['ipaddresses', 'edit', id]);
+  }
+
+  gotoCreate() {
+    this.router.navigate(['ipaddresses', 'create']);
   }
 }

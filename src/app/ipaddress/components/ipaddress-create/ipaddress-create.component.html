@@ -1,32 +1,27 @@
-<div fxFlex="100" fxLayout="column" class="profile-step2">
-    <form [formGroup]="form">
-        <div class="">
-            <div>
-                <mat-icon>ip</mat-icon>
-                <div class="ip">IP Address</div>
-            </div>
-            <div class="">
-                <mat-form-field appearance="outline">
-                    <mat-label>IP Address</mat-label>
-                    <input matInput placeholder="IP Address" formControlName="ip" />
-                </mat-form-field>
-            </div>
+<div class="w-full max-w-xs ip-form">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4  mx-auto" [formGroup]="form">
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="ip">IP Address</label>
+
+            <input
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="IP Address" formControlName="ip" />
         </div>
-        <div class="">
-            <div>
-                <mat-icon>label</mat-icon>
-                <div class="label">Label</div>
-            </div>
-            <div class="">
-                <mat-form-field appearance="outline">
-                    <mat-label>Label</mat-label>
-                    <input matInput placeholder="Label" formControlName="label" />
-                </mat-form-field>
-            </div>
+        <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="label">Label</label>
+
+            <input
+                class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Label" formControlName="label" />
         </div>
-        <div class="">
-            <button mat-button class="mat-cancel">Cancel</button>
-            <button mat-raised-button [disabled]="form?.invalid" color="primary" (click)="submitForm()">
+        <div class="flex items-center justify-between">
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                routerLink="/ipaddresses">
+                Cancel
+            </a>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                mat-raised-button [disabled]="form?.invalid" color="primary" (click)="submitForm()">
                 Save
             </button>
         </div>
